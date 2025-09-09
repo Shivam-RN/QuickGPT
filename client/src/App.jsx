@@ -1,10 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Sidebar from './components/Sidebar'
+import { Route, Routes } from 'react-router-dom'
+import ChatBox from './components/ChatBox'
+import Credits from './pages/Credits'
+import Community from './pages/Community'
+import { assets } from './assets/assets'
 
 const App = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
-    <div className='text-orange-500'>
-      hello
+    <>
+    {!isMenuOpen && <img src={assets.hamburger_icon} alt="" className='absolute top-3 left-3 w-8 h-8 cursor-pointer md:hidden' onClick={()=>setIsMenuOpen(true)} />}
+  
+    <div className='dark:bg-gradient-to-b from-[#242421] to-[#000000] dark:text-white'>
+      <div className='flex h-screen w-screen'>
+        <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}/> 
+        <Routes>
+          <Route path='/' element={<ChatBox/>} />
+          <Route path='/credits' element={<Credits/>} />
+          <Route path='/community' element={<Community/>} />
+        </Routes>
+      </div>
     </div>
+    </>
   )
 }
 
