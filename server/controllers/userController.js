@@ -1,6 +1,6 @@
-import User from "../models/User";X
+import User from "../models/User.js";
 import jwt from "jsonwebtoken";
-
+import bcrypt from "bcryptjs";
 // genrate JWT token
 
 const genrateToken = (id) => {
