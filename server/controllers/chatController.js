@@ -1,6 +1,4 @@
-import Chat from "../models/chat.js"
-
-// api controller for chat
+import Chat from "../models/Chat.js"
 
 export const createChat = async(req, res) => {
     try {

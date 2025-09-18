@@ -1,4 +1,4 @@
-import Chat from "../models/chat.js"
+import Chat from "../models/Chat.js"
 import User from "../models/User.js"
 import openai from "../configs/openai.js"
 import axios from "axios"
