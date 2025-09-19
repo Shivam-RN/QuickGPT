@@ -1,6 +1,5 @@
-import Transaction from "../models/Transaction.js";
 import Stripe from "stripe";
-
+import Transaction from "../models/Transaction.js";
 const plans = [
     {
         _id: "basic",
@@ -25,6 +24,7 @@ const plans = [
     }
 ]
 
+
 // api controller to get all plans
 
 export const getPlans = async (req, res) => {
@@ -35,7 +35,11 @@ export const getPlans = async (req, res) => {
     }
 }
 
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+
+
 
 // api controller for getting all plans
 
@@ -43,12 +47,10 @@ export const purchasePlan = async (req, res) => {
     try {
         const { planId } = req.body;
         const userId = req.user._id;
-
         const plan = plans.find(p => p._id === planId);
         if(!plan){
             return res.json({ success: false, message: "Invalid plan ID" });
         }
-
         // create a new transaction
         const transaction = await Transaction.create({
             userId: userId,
@@ -60,7 +62,8 @@ export const purchasePlan = async (req, res) => {
 
         // create a stripe checkout session
 
-        const {origin} = req.headers
+        const {order} = req.headers;
+
         const session = await stripe.checkout.sessions.create({
             line_items: [
                 {
@@ -77,13 +80,9 @@ export const purchasePlan = async (req, res) => {
             mode: 'payment',
             success_url: `${origin}/loading`,
             cancel_url: `${origin}`,
-            payment_intent_data: { 
-                metadata: {
-                transactionId: transaction._id.toString(),
-                appId: 'quickgpt'
-                }
-            },
-            expires_at: Math.floor(Date.now() / 1000) + 30 * 60,
+            metadata: {transactionId: transaction._id.toString(), appId: 'quickgpt' },
+
+            expires_at: Math.floor(Date.now() / 1000) + 15 * 60,
         });
 
         res.json({ success: true, url: session.url });
