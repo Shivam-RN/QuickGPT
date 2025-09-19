@@ -35,10 +35,7 @@ export const getPlans = async (req, res) => {
     }
 }
 
-
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
-
 
 
 // api controller for getting all plans
@@ -62,7 +59,7 @@ export const purchasePlan = async (req, res) => {
 
         // create a stripe checkout session
 
-        const {order} = req.headers;
+        const {origin} = req.headers;
 
         const session = await stripe.checkout.sessions.create({
             line_items: [
@@ -82,7 +79,7 @@ export const purchasePlan = async (req, res) => {
             cancel_url: `${origin}`,
             metadata: {transactionId: transaction._id.toString(), appId: 'quickgpt' },
 
-            expires_at: Math.floor(Date.now() / 1000) + 15 * 60,
+            expires_at: Math.floor(Date.now() / 1000) + 30 * 60,
         });
 
         res.json({ success: true, url: session.url });
