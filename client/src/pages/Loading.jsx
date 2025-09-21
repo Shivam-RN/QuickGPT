@@ -18,11 +18,8 @@ const Loading = () => {
     const progressInterval = setInterval(() => {
       setProgress(prev => {
         const newProgress = Math.min(prev + (Math.random() * 3 + 1), 100)
-        
-        // Update phase based on progress
         const phaseIndex = Math.floor((newProgress / 100) * phases.length)
         setLoadingPhase(Math.min(phaseIndex, phases.length - 1))
-        
         return newProgress
       })
     }, 150)
@@ -45,12 +42,12 @@ const Loading = () => {
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center relative overflow-hidden">
-      {/* Animated background with floating orbs - same as login */}
+      {/* Animated background */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
         <div className="absolute top-20 left-20 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
         <div className="absolute top-40 right-20 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
         <div className="absolute -bottom-20 left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-500"></div>
-        
+
         {/* Animated grid pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent animate-pulse"></div>
@@ -67,11 +64,9 @@ const Loading = () => {
 
       {/* Glassmorphism container */}
       <div className="relative z-10 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl p-12 w-full max-w-md transform hover:scale-105 transition-all duration-500 hover:shadow-purple-500/25">
-        
-        {/* Subtle inner glow */}
         <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500/10 via-transparent to-cyan-500/10 pointer-events-none"></div>
-        
-        {/* Header with enhanced typography */}
+
+        {/* Header */}
         <div className="relative z-10 text-center mb-10">
           <div className="inline-block">
             <div className="text-6xl mb-6 animate-bounce">
@@ -88,8 +83,6 @@ const Loading = () => {
 
         {/* Loading content */}
         <div className="space-y-8 relative z-10">
-          
-          {/* Dual spinning rings with glassmorphism */}
           <div className="flex justify-center">
             <div className="relative">
               <div className="w-24 h-24 border-4 border-white/20 border-t-purple-400 border-r-cyan-400 rounded-full animate-spin"></div>
@@ -98,17 +91,14 @@ const Loading = () => {
             </div>
           </div>
 
-          {/* Enhanced progress section */}
+          {/* Progress section */}
           <div className="space-y-4">
-            {/* Progress bar container with glassmorphism */}
             <div className="relative group">
               <div className="bg-white/10 border border-white/20 rounded-2xl p-4 hover:bg-white/15 transition-all duration-300">
                 <div className="flex justify-between text-sm font-semibold mb-3">
                   <span className="text-purple-300">Progress</span>
                   <span className="text-cyan-300">{Math.round(progress)}%</span>
                 </div>
-                
-                {/* Progress bar */}
                 <div className="h-3 bg-white/10 rounded-full overflow-hidden">
                   <div 
                     className="h-full bg-gradient-to-r from-purple-500 via-purple-400 to-cyan-400 rounded-full transition-all duration-300 ease-out relative"
@@ -118,22 +108,18 @@ const Loading = () => {
                   </div>
                 </div>
               </div>
-              
-              {/* Hover glow effect */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/0 via-purple-500/10 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
             </div>
-
-
           </div>
         </div>
 
-        {/* Decorative elements - same as login */}
+        {/* Decorative elements */}
         <div className="absolute top-4 right-4 w-2 h-2 bg-purple-400 rounded-full animate-ping"></div>
         <div className="absolute bottom-4 left-4 w-1 h-1 bg-cyan-400 rounded-full animate-pulse"></div>
       </div>
 
-      {/* Custom CSS for grid animation */}
-      <style jsx>{`
+      {/* Custom CSS for grid animation */} 
+      <style>{`
         @keyframes grid-shift {
           0%, 100% { transform: translate(0, 0); }
           50% { transform: translate(25px, 25px); }
