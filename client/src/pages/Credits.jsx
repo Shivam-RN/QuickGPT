@@ -24,6 +24,20 @@ const Credits = () => {
     }
     setLoading(false)
   }
+
+  const purchasePlan = async(planId) => {
+    try {
+      const {data} = await axios.post('/api/credit/purchase', {planId},{ headers :{Authorization:token} })
+      if(data.success){
+        window.location.href = data.url
+      }else{
+        toast.error(data.message || 'Failed to initiate purchase')
+      }
+    } catch (error) {
+      toast.error(error.message || 'Something went wrong')
+    }
+  }
+
   useEffect(() => {
     fetchPlans()
   })
@@ -54,7 +68,7 @@ const Credits = () => {
                   </ul>
 
               </div>
-                    <button className='mt-6 bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-medium py-2 rounded transition-colors
+                    <button onClick={()=>toast.promise(purchasePlan(plan._id),{loading:"Processing..."})} className='mt-6 bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-medium py-2 rounded transition-colors
                      cursor-pointer'>Buy Now</button>
             </div>
           ))}
