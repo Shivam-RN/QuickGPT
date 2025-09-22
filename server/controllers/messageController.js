@@ -48,7 +48,7 @@ export const imageMessageController = async (req, res) => {
         if (req.user.credits < 2) {
             return res.json({ success: true, message: "You don't have enough credits to use feature" })
         }
-        const { prompt, chatId, isPublised } = req.body
+        const { prompt, chatId, isPublished } = req.body
         // find chat
         const chat = await Chat.findOne({ userId, _id: chatId })
 
@@ -87,7 +87,7 @@ export const imageMessageController = async (req, res) => {
             content: uploadResponse.url,
             timestamp: Date.now(),
             isImage: true,
-            isPublised
+            isPublished
         }
         res.json({ success: true, reply })
 

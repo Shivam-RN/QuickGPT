@@ -1,7 +1,7 @@
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-// genrate JWT token
+import Chat from "../models/Chat.js";
 
 const genrateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -60,28 +60,27 @@ export const getUser = async (req, res) => {
 // api to get published images
 
 export const getPublishedImages = async (req, res) => {
-    try {
-        const publishedImageMessages = await Chat.aggregate([
-            {$unwind: "$messages"},
-            {
-                $match: {
-                    "messages.isImage": true,
-                    "messages.isPublished": true
-                }
-            },
-            {
-                $project: {
-                    _id: 0,
-                    imageUrl: "$messages.content",
-                    userName: "$userName",
-                    
-                }
-            },
-        ])
+  try {
+    const publishedImageMessages = await Chat.aggregate([
+      { $unwind: "$messages" },
+      {
+        $match: {
+          "messages.isImage": true,
+          "messages.isPublished": true
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          imageUrl: "$messages.content",
+          userName: "$userName"
+        }
+      }
+    ]);
 
-        res.json({ success: true, Images: publishedImageMessages.reverse() });
+    res.json({ success: true, images: publishedImageMessages.reverse() });
 
-    } catch (error) {
-        return res.json({ success: false, message: error.message });
-    }
-}
+  } catch (error) {
+    return res.json({ success: false, message: error.message });
+  }
+};
