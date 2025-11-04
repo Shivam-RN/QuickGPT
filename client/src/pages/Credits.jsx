@@ -57,7 +57,7 @@ const Credits = () => {
               <div className='flex-1'>
                   <h3 className='text-xl font-semibold text-gray-900 dark:text-white mb-2'>{plan.name}</h3>
                   <p className='text-2xl font-bold text-purple-600 dark:text-purple-300
-                   mb-4'>₹{plan.price}
+                   mb-4'>${plan.price}
                   <span className='text-base font-normal text-gray-600 dark:text-purple-200'>
                     {' '}/ {plan.credits} credits</span>  
                   </p>

@@ -143,7 +143,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
                 dark:border-white/15 rounded-md cursor-pointer group'>
         <img src={assets.user_icon} className='w-7 rounded-full' alt="" />
         <p className='flex-1 text-sm dark:text-primary truncate'>{user ? user.name : 'Login your account'}</p>
-        {user && <img onClick={logout} src={assets.logout_icon} alt="" className='hidden  h-5 group-hover:block w-4 cursor-pointer not-dark:invert' />}
+        {user && <img onClick={logout} src={assets.logout_icon} alt="" className='h-5 group-hover:block w-4 cursor-pointer not-dark:invert' />}
       </div>
 
       {/* close icon in phone */}

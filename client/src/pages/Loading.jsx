@@ -5,11 +5,11 @@ import { useAppContext } from '../context/AppContext'
 const Loading = () => {
 
   const navigate = useNavigate()
-  const {fretchUser} = useAppContext()
+  const {fetchUser} = useAppContext()
 
   useEffect(()=>{
     const timeout = setTimeout(()=>{
-      fretchUser()
+      fetchUser()
       navigate('/')
 
     },8000)
